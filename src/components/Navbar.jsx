@@ -7,15 +7,15 @@ import { Outlet } from "react-router-dom";
 const Navbar = () => {
   const state = useSelector((state) => state.users);
   const { userAuth } = state;
-  const isAdmin = userAuth.isAdmin;
+  const isAdmin = userAuth?.isAdmin;
   return (
     <>
-      {!userAuth ? (
-        <PublicNavbar />
+      {isAdmin ? (
+        <AdminNavbar />
       ) : userAuth ? (
         <PrivateNavbar />
       ) : (
-        isAdmin && <AdminNavbar />
+        <PublicNavbar />
       )}
       <Outlet />
     </>
