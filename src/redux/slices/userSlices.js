@@ -4,7 +4,7 @@ import { baseURL } from "../../utils/baseURL";
 
 export const userRegisterAction = createAsyncThunk(
   "users/register",
-  async (user, { rejectWithValue, getState, dispatch }) => {
+  async (user, { rejectWithValue }) => {
     const config = {
       headers: {
         "Content-Type": "application/json",
@@ -29,7 +29,7 @@ export const userRegisterAction = createAsyncThunk(
 
 export const userLoginAction = createAsyncThunk(
   "users/login",
-  async (userData, { rejectWithValue, getState, dispatch }) => {
+  async (userData, { rejectWithValue }) => {
     const config = {
       headers: {
         "Content-Type": "application/json",
@@ -54,7 +54,7 @@ export const userLoginAction = createAsyncThunk(
 
 export const userLogoutAction = createAsyncThunk(
   "users/logout",
-  async (user, { rejectWithValue, getState, dispatch }) => {
+  async (user, { rejectWithValue }) => {
     try {
       localStorage.removeItem("userInfo");
     } catch (error) {
@@ -77,7 +77,7 @@ const userSlices = createSlice({
   },
   extraReducers: (builder) => {
     //register
-    builder.addCase(userRegisterAction.pending, (state, action) => {
+    builder.addCase(userRegisterAction.pending, (state) => {
       state.loading = true;
       state.appErr = undefined;
       state.serverErr = undefined;
@@ -95,7 +95,7 @@ const userSlices = createSlice({
     });
 
     //login
-    builder.addCase(userLoginAction.pending, (state, action) => {
+    builder.addCase(userLoginAction.pending, (state) => {
       state.loading = true;
       state.appErr = undefined;
       state.serverErr = undefined;
@@ -113,12 +113,12 @@ const userSlices = createSlice({
     });
 
     //logout
-    builder.addCase(userLogoutAction.pending, (state, action) => {
+    builder.addCase(userLogoutAction.pending, (state) => {
       state.loading = true;
       state.appErr = undefined;
       state.serverErr = undefined;
     });
-    builder.addCase(userLogoutAction.fulfilled, (state, action) => {
+    builder.addCase(userLogoutAction.fulfilled, (state) => {
       state.loading = false;
       state.userAuth = undefined;
       state.appErr = undefined;
